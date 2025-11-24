@@ -1,0 +1,32 @@
+CREATE TABLE author (
+    author_id SERIAL PRIMARY KEY,
+    author_name VARCHAR(100) NOT NULL
+);
+
+CREATE TABLE books (
+    book_id SERIAL PRIMARY KEY,
+    title VARCHAR(250) NOT NULL,
+    published_year INT,
+    author_id INT,
+    FOREIGN KEY (author_id) REFERENCES author(author_id)
+);
+
+ALTER TABLE books ADD COLUMN gener VARCHAR(100);
+
+ALTER TABLE books add constraint published_year check (published_year <= 2025);
+
+ALTER TABLE books DROP COLUMN author_id;
+
+CREATE TABLE book_authors(
+    book_id int,
+    author_id int,
+    PRIMARY KEY (book_id, author_id),
+    Foreign Key (book_id) REFERENCES books (book_id),
+    Foreign Key (author_id) REFERENCES author (author_id)
+);
+
+CREATE TABLE temp_table (
+    temp_table_id INT
+);
+
+DROP TABLE temp_table;

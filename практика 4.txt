@@ -1,0 +1,27 @@
+Create TABLE customer (
+    customer_id INT PRIMARY KEY,
+    full_name VARCHAR(255),
+    email VARCHAR(255)
+);
+
+CREATE TABLE Orderr (
+    orderr_id INT PRIMARY KEY,
+    orderr_date DATE,
+    customer_id INT,
+    FOREIGN KEY (customer_id) REFERENCES customer(customer_id)
+);
+
+CREATE TABLE product (
+    product_id INT PRIMARY KEY,
+    title VARCHAR(100),
+    price FLOAT
+);
+
+CREATE TABLE product_in_orderr(
+    quantity INT,
+    product_id INT,
+    orderr_id INT,
+    PRIMARY KEY (product_id, orderr_id),
+    FOREIGN KEY (product_id) REFERENCES product(product_id),
+    FOREIGN KEY (orderr_id) REFERENCES orderr(orderr_id)
+);

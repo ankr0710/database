@@ -1,0 +1,31 @@
+CREATE TABLE Students (
+    student_id SERIAL PRIMARY KEY,
+    full_name VARCHAR(255) NOT NULL, 
+    email VARCHAR(255) UNIQUE NOT NULL,
+    start_year INT 
+);
+
+CREATE TABLE Courses (
+    course_id SERIAL PRIMARY KEY, 
+    course_name VARCHAR(255) NOT NULL, 
+    credits INT CHECK (credits > 0) 
+);
+
+CREATE TABLE Enrollments (
+    student_id INT REFERENCES Students(student_id) ON DELETE CASCADE, 
+    course_id INT REFERENCES Courses(course_id) ON DELETE CASCADE, 
+    grade CHAR(1), 
+    PRIMARY KEY (student_id, course_id)
+);
+
+INSERT INTO students (full_name, email, start_year) VALUES ('Алексей Смирнов', 'smirnov.a@mail.com', 2021), ('Елена Кузнецова','elenakyznec@yandex.ru', 2022), ('Дмитрий Новиков','dimanov@gmail.com',2021), ('Ольга Морозова','morozolya@yandex.ru',2023);
+
+INSERT INTO Courses (course_name, credits) VALUES ('Введение в программирование',5), ('Базы данных',4), ('Веб-технологии',4)
+
+INSERT INTO Enrollments (student_id, course_id, grade) VALUES (1,2,'A'), (2,2,'B'), (2,3,'A'), (3,1, NULL), (3,2, NULL), (3,3, NULL);
+
+UPDATE Students set email = 'elena.kuznetsova@newmail.com' WHERE student_id = 2;
+
+UPDATE Enrollments set grade = 'A' where student_id = 3 and course_id = 1;
+
+DELETE  FROM students WHERE email = 'morozolya@yandex.ru';

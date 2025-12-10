@@ -1,0 +1,80 @@
+--№1 
+create table project (
+    project_id int PRIMARY KEY,
+    project_name VARCHAR (255)
+);
+
+CREATE TABLE members (
+    member_id int PRIMARY KEY,
+    member_name VARCHAR (1000)
+);
+
+create table project_members (
+    project_id int,
+    member_id int,
+    primary key (project_id, member_id),
+    Foreign Key (project_id) REFERENCES project (project_id),
+    Foreign Key (member_id) REFERENCES members (member_id)
+);
+
+--№2
+create table clients (
+    client_id int,
+    client_name VARCHAR(255),
+    client_email VARCHAR(255)
+);
+
+create table rentEquipment (
+    client_id int,
+    equipment_id int,
+    equipment_name VARCHAR(255),
+    rental_date date,
+    PRIMARY KEY (client_id, equipment_id)
+);
+
+--№3
+--3.1
+CREATE Table student_courses(
+    student_id int,
+    course_id int,
+    student_name VARCHAR (255),
+    course_professor VARCHAR(255),
+    PRIMARY KEY (student_id, course_id)
+);
+
+CREATE Table student_assignmentsGrades(
+    student_id int,
+    course_id int,
+    assignment_name VARCHAR(255),
+    grade int,
+    PRIMARY key (student_id, course_id, assignment_name),
+    Foreign Key (student_id, course_id) REFERENCES student_courses(student_id, course_id)
+);
+
+--№3.2
+CREATE TABLE student(
+    student_id int PRIMARY KEY,
+    student_name VARCHAR(255)
+);
+
+CREATE table courses(
+    course_id int PRIMARY KEY,
+    course_professor VARCHAR(255)
+);
+
+CREATE TABLE studentCours(
+    student_id int,
+    course_id int,
+    PRIMARY KEY (student_id, course_id),
+    Foreign Key (student_id) REFERENCES student(student_id),
+    Foreign Key (course_id) REFERENCES courses(course_id)
+);
+
+CREATE Table student_assignments(
+    student_id int,
+    course_id int,
+    assignment_name VARCHAR(255),
+    grade int,
+    PRIMARY KEY (student_id, course_id, assignment_name),
+    Foreign Key (student_id, course_id) REFERENCES studentCours (student_id, course_id)
+);

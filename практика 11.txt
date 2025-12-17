@@ -1,0 +1,57 @@
+--№1 
+CREATE Table books(
+    book_id int PRIMARY KEY,
+    title VARCHAR(255)
+);
+
+create table author (
+    author_id int PRIMARY KEY,
+    author_name int
+);
+
+create table author_book(
+    book_id int,
+    author_id int,
+    PRIMARY KEY (book_id, author_id),
+    Foreign Key (book_id) REFERENCES books (book_id),
+    Foreign Key (author_id) REFERENCES author(author_id)
+);
+
+create table publisher (
+    publisher_id int,
+    book_id int,
+    author_id int,
+    publisher_name VARCHAR(255),
+    publisher_city VARCHAR(100),
+    Foreign Key (book_id, author_id) REFERENCES author_book(book_id, author_id)
+);
+
+--№2
+CREATE Table car(
+    car_model VARCHAR(100) PRIMARY KEY,
+    car_manufacture VARCHAR(100)
+);
+
+create Table race_results (
+    race_id int,
+    driver_id int,
+    finish_time TIME,
+    car_model VARCHAR(100),
+    PRIMARY KEY (race_id, driver_id),
+    Foreign Key (car_model) REFERENCES car(car_model)
+);
+
+--№3
+CREATE Table room(
+    room_id int PRIMARY KEY,
+    room_name VARCHAR(100)   
+);
+
+CREATE table booking_room(
+    booking_id int PRIMARY KEY,
+    room_id int,
+    booking_time DATE,
+    event_name event_type,
+    Foreign Key (room_id) REFERENCES room(room_id)
+);
+create TYPE event_type as ENUM ('встреча', 'презентация');
